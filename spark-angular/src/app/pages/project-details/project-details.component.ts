@@ -59,7 +59,10 @@ export class ProjectDetailsComponent implements OnInit {
       .then((resp) => {
         if (resp.data.status === 'success') {
           this.fetchData();
-          this.addInstallmentForm.reset();
+          this.addInstallmentForm.setValue({
+            amount: 0,
+            project_id: this.project_id
+          })
         }
       })
       .catch((err: any) => {
