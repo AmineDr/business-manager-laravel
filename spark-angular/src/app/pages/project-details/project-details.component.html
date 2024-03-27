@@ -1,0 +1,80 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="display-4">Project details</h2>
+  </div>
+  <div class="card-body">
+    <div class="overflow-x-scroll">
+      <table class="table table-sm">
+        <tbody>
+          <div *ngIf="isLoading; then loading; else done"></div>
+          <ng-template #loading> Loading... </ng-template>
+          <ng-template #done>
+            <tr>
+              <th>Name</th>
+              <td>{{ project?.name }}</td>
+            </tr>
+            <tr>
+              <th>Amount</th>
+              <td>{{ project?.amount }}</td>
+            </tr>
+            <tr>
+              <th>Customer name</th>
+              <td>
+                <a [routerLink]="['/customers', project?.customer_id]">{{
+                  project?.customer?.name
+                }}</a>
+              </td>
+            </tr>
+            <tr>
+              <th>Creation date</th>
+              <td>{{ project?.created_at }}</td>
+            </tr>
+            <tr>
+              <th>Last update</th>
+              <td>{{ project?.updated_at }}</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+    <div class="card mt-5">
+      <div class="card-header">
+        <h2 class="display-6">Installments</h2>
+      </div>
+      <div>
+        <div class="d-flex justify-content-end py-3 pe-3">
+          <form class="form-group d-flex" [formGroup]="addInstallmentForm" (ngSubmit)="handleSubmit()">
+            <input class="form-control form-control-sm" style="border-radius: 0%;" type="number" formControlName="amount" />
+            <input class="btn btn-sm btn-outline-success" style="border-radius: 0%;" value="Add installment" type="submit" />
+          </form>
+        </div>
+        <div class="card-body overflow-x-scroll">
+          <table class="table table-sm">
+            <thead>
+              <th>#</th>
+              <th>Amount</th>
+              <th>Last Update</th>
+              <th>Creation Date</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <div *ngIf="project?.installments?.length; else noContent;"></div>
+              <ng-template #noContent>
+                <tr>
+                  <td colspan="5">No record.</td>
+                </tr>
+              </ng-template>
+              <tr *ngFor="let Installment of project?.installments; index as i">
+                <td>{{i + 1}}</td>
+                <td>{{ Installment.amount }}</td>
+                <td>{{ Installment.updated_at }}</td>
+                <td>{{ Installment.created_at }}</td>
+                <td><span class="text-danger" style="cursor: pointer;" (click)="handleDelete(Installment.id)">-</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

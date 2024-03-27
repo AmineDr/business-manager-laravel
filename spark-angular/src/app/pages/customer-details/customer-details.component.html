@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="display-4">Customer details</h2>
+  </div>
+  <div class="card-body">
+    <div *ngIf="isLoading; then loading; else done"></div>
+    <ng-template #loading> Loading... </ng-template>
+    <ng-template #done>
+      <div>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td>{{ customer.name }}</td>
+            </tr>
+            <tr>
+              <th>Phone</th>
+              <td>{{ customer.phone }}</td>
+            </tr>
+            <tr>
+              <th>Creation date</th>
+              <td>{{ customer.created_at }}</td>
+            </tr>
+            <tr>
+              <th>Last update</th>
+              <td>{{ customer.updated_at }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="overflow-x-scroll">
+          <table class="table table-sm my-5">
+            <thead>
+              <th>#</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Last update</th>
+              <th>Creation date</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let project of customer.projects; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>
+                  <a [routerLink]="['/projects', project.id]">{{
+                    project.name
+                  }}</a>
+                </td>
+                <td>{{ project.amount }}</td>
+                <td>{{ project.updated_at }}</td>
+                <td>{{ project.created_at }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="display-4">Projects ({{ projects.length }})</h2>
+  </div>
+  <div class="card-body">
+    <div class="d-flex justify-content-end mb-5">
+        <button class="btn btn-sm btn-outline-success" [routerLink]="['add']">Add project</button>
+    </div>
+    <div class="overflow-x-scroll">
+      <table class="table table-sm">
+        <thead>
+          <th>#</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Customer</th>
+          <th>Creation date</th>
+        </thead>
+        <tbody>
+          <div *ngIf="isLoading; then loading; else done"></div>
+          <ng-template #loading> Loading... </ng-template>
+          <ng-template #done>
+            <tr *ngFor="let project of projects; index as i">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <a [routerLink]="['/projects', project.id]">{{
+                  project.name
+                }}</a>
+              </td>
+              <td>{{ project.amount }}</td>
+              <td>
+                <a [routerLink]="['/customers', project.customer_id]">{{
+                  project.customer?.name
+                }}</a>
+              </td>
+              <td>{{ project.created_at }}</td>
+              <td>
+                <span
+                  class="text-danger"
+                  style="cursor: pointer"
+                  (click)="deleteProject(project.id)"
+                  >-</span
+                >
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

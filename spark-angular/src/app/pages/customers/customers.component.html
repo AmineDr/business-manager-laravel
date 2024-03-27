@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-header">
+        <h2 class="display-4">Customers ({{customers.length}})</h2>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-end mb-4 position-relative">
+            <button class="btn btn-sm btn-outline-success" [routerLink]="['add']">
+                Add customer
+            </button>
+        </div>
+        <div style="overflow: scroll;">
+            <table class="table table-sm">
+                <thead>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th style="min-width: 130px;">Projects count</th>
+                    <th>Creation date</th>
+                </thead>
+                <tbody>
+                    <div *ngIf="isLoading; then loading; else done"></div>
+                    <ng-template #loading>
+                        Loading...
+                    </ng-template>
+                    <ng-template #done>
+                    <tr *ngFor="let customer of customers; index as i">
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                            <a class="link" [routerLink]="[customer.id]">{{ customer.name }}</a>
+                        </td>
+                        <td>{{ customer.phone }}</td>
+                        <td>{{ customer.projects_count }}</td>
+                        <td>{{ customer.created_at }}</td>
+                        <td><span class="text-danger" style="cursor: pointer;" (click)="deleteCustomer(customer.id)">-</span></td>
+                    </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

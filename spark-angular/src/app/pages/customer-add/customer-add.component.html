@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header">
+        <h2 class="display-4">Add a new customer</h2>
+    </div>
+    <div class="card-body">
+        <form class="d-flex flex-column gap-3" [formGroup]="addCustomerForm" (ngSubmit)="handleSubmit()">
+            <div class="form-group">
+                <input class="form-control" placeholder="Full name" formControlName="name" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="Phone number" formControlName="phone" />
+            </div>
+            <div class="form-group gap-1 d-flex">
+                <input class="form-control-checkbox form-control-checkbox-lg" type="checkbox" id="goBack" (change)="toggleGoBack()" [defaultChecked]="true" />
+                <label for="goBack" class="form-check-label" style="user-select: none;">Navigate back to customers page after submission</label>
+            </div>
+            <div class="form-group w-100 d-flex justify-content-end">
+                <input class="btn btn-primary" value="Submit" type="submit" [disabled]="isLoading" />
+            </div>
+        </form>
+    </div>
+</div>
