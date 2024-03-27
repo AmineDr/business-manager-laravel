@@ -8,6 +8,10 @@ $router->get('/api', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('/api/ping', function () use ($router) {
+    return ["status"=>"pong"];
+});
+
 $router->group(['prefix'=>'/api'], function () use ($router) {
     $router->post('login', 'UserController@login');
 });
