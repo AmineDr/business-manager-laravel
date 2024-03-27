@@ -1,8 +1,8 @@
 module.exports = {
   apps : [{
     name: "Business Manager CI/CD",
-    script: '',
-    watch: '.'
+    script: "./",
+    watch: "."
   }
 ],
 
