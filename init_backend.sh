@@ -1,2 +1,15 @@
 cd ./spark-lumen;
-echo "APP_NAME=TravelList\nAPP_ENV=production\nAPP_KEY=\nAPP_DEBUG=true\nAPP_URL=http://localhost:8000\n\nLOG_CHANNEL=stack\n\nDB_CONNECTION=mysql\nDB_HOST=127.0.0.1\nDB_PORT=3306\nDB_DATABASE=business_manager\nDB_USERNAME=business_manager_user\nDB_PASSWORD=GDSlogin69" > .env;
+echo 'APP_NAME=TravelList
+APP_ENV=production
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+LOG_CHANNEL=stack
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=business_manager
+DB_USERNAME=business_manager_user
+DB_PASSWORD=GDSlogin69' > .env;
