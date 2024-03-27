@@ -1,7 +1,8 @@
 import { Axios, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { getToken } from './tokens';
+import { isDevMode } from '@angular/core';
 
-const baseURL = process.env['environ'] === 'prod' ? '/api' : 'http://localhost:8000/api';
+const baseURL = !isDevMode() ? '/api' : 'http://localhost:8000/api';
 
 export class AxiosInstance extends Axios {
   token = getToken();
