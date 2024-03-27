@@ -6,12 +6,7 @@ export class AxiosInstance extends Axios {
 
   constructor() {
     super({
-      baseURL: 'http://localhost:8001/api',
-      withCredentials: false,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        "Content-Type": 'application/x-www-form-urlencoded'
-      }
+      baseURL: 'http://localhost:8001/api'
     });
     
     this.interceptors.request.use((config: InternalAxiosRequestConfig) => {
