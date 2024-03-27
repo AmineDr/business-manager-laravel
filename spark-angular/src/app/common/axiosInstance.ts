@@ -6,7 +6,7 @@ export class AxiosInstance extends Axios {
 
   constructor() {
     super({
-      baseURL: 'http://localhost:8000/api',
+      baseURL: 'http://localhost:8001/api',
       withCredentials: false,
       headers: {
         'Access-Control-Allow-Origin': '*',
