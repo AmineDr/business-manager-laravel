@@ -13,3 +13,4 @@ DB_PORT=3306
 DB_DATABASE=business_manager
 DB_USERNAME=business_manager_user
 DB_PASSWORD=GDSlogin69' > .env;
+composer install;
