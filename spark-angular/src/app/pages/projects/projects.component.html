@@ -26,13 +26,13 @@
                   project.name
                 }}</a>
               </td>
-              <td>{{ project.amount }}</td>
+              <td>{{ utilsService.formatPrice(project.amount) }}</td>
               <td>
                 <a [routerLink]="['/customers', project.customer_id]">{{
                   project.customer?.name
                 }}</a>
               </td>
-              <td>{{ project.created_at }}</td>
+              <td>{{ utilsService.formatDate(project.created_at) }}</td>
               <td>
                 <span
                   class="text-danger"

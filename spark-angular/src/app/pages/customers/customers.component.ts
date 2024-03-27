@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AxiosResponse } from 'axios';
 import { AxiosInstance } from '../../common/axiosInstance';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-customers',
@@ -15,6 +16,9 @@ export class CustomersComponent implements OnInit {
   customers: any[] = []
   axios = new AxiosInstance()
   isLoading = true
+
+  constructor (public utilsService: UtilsService) {}
+
   ngOnInit() {
     this.fetchData()
   }

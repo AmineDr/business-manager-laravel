@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function get() {
-        $projects = Project::with("customer")->get();
+    public function get(Request $request) {
+        $projects = Project::with("customer")->where('user_id', $request->user()->id)->get();
         if (!$projects) {
             return response([
                 "status"=>"notFound"
@@ -21,8 +21,8 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function getId($id) {
-        $project = Project::find($id)->with("customer")->with("installments")->first();
+    public function getId(Request $request, $id) {
+        $project = Project::find($id)->where('user_id', $request->user()->id)->with("customer")->with("installments")->first();
         if (!$project) {
             return response([
                 "status"=>"notFound"
@@ -37,7 +37,7 @@ class ProjectController extends Controller
     public function add(Request $request) {
         $this->validate($request, [
             "name"=>"required",
-            "amount"=>"required|number",
+            "amount"=>"required",
             "existing_customer"=>"required"
         ]);
 
@@ -72,8 +72,8 @@ class ProjectController extends Controller
         ];
     }
 
-    public function delete($id) {
-        $project = Project::find($id)->first();
+    public function delete(Request $request, $id) {
+        $project = Project::find($id)->where('user_id', $request->user()->id)->first();
         if (!$project) {
             return response([
                 "status"=>"notFound"

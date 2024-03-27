@@ -10,7 +10,7 @@ import { AuthGuard } from './guards/auth-guard.guard';
   standalone: true, // Bootstraps the application within this component
   imports: [RouterOutlet, NavbarComponent], // Import necessary components
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'spark-angular';
@@ -20,7 +20,13 @@ export class AppComponent implements OnInit {
   router = new Router();
 
   constructor(private userInfoService: AuthService) {
-    userInfoService.checkSession()
+    userInfoService.checkSession().then((resp) => {
+      if (resp) {
+        // this.router.navigateByUrl('/home')
+        return
+      }
+      this.router.navigateByUrl('/login')
+    })
   }
 
   ngOnInit(): void {

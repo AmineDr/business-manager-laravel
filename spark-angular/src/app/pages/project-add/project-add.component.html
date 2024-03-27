@@ -9,7 +9,7 @@
                     <input class="form-control" placeholder="Project name" formControlName="name">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="number" placeholder="Amount" formControlName="amount" />
+                    <input class="form-control" type="tel" min="0" placeholder="Amount" formControlName="amount" />
                 </div>
                 <div class="form-group">
                     <input class="form-checkbox me-2" type="checkbox" id="existing-customer" [defaultChecked]="false" formControlName="existing_customer" (change)="toggleExistingCustomer()" />

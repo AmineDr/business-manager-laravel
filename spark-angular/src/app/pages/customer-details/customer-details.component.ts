@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AxiosInstance } from '../../common/axiosInstance';
 import { AxiosResponse } from 'axios';
+import { UtilsService } from '../../services/utils.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class CustomerDetailsComponent implements OnInit {
   customer: any;
   router = new Router();
   axios = new AxiosInstance()
-  constructor(private route: ActivatedRoute) {}
+  
+  constructor(private route: ActivatedRoute, public utilsService: UtilsService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {

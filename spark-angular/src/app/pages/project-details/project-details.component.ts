@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AxiosResponse } from 'axios';
 import { AxiosInstance } from '../../common/axiosInstance';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-project-details',
@@ -20,7 +21,7 @@ export class ProjectDetailsComponent implements OnInit {
   router = new Router();
   axios = new AxiosInstance();
   addInstallmentForm: FormGroup = new FormGroup({});
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, public utilsService: UtilsService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {

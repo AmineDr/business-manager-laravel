@@ -18,6 +18,7 @@ $router->group(['prefix'=>'/api'], function () use ($router) {
 
 $router->group(['prefix'=>'/api/user', 'middleware'=>'auth'], function () use ($router) {
     $router->get('self', 'UserController@getAuthenticatedUser');
+    $router->get('stats', "UserController@getStats");
 });
 
 $router->group(['prefix'=>'/api/customers', 'middleware'=>'auth'], function () use ($router) {

@@ -28,9 +28,9 @@
                         <td>
                             <a class="link" [routerLink]="[customer.id]">{{ customer.name }}</a>
                         </td>
-                        <td>{{ customer.phone }}</td>
+                        <td>{{ customer.phone.length ? customer.phone :"-" }}</td>
                         <td>{{ customer.projects_count }}</td>
-                        <td>{{ customer.created_at }}</td>
+                        <td>{{ utilsService.formatDate(customer.created_at) }}</td>
                         <td><span class="text-danger" style="cursor: pointer;" (click)="deleteCustomer(customer.id)">-</span></td>
                     </tr>
                     </ng-template>

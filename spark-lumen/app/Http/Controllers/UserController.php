@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -40,5 +41,24 @@ class UserController extends Controller
             "status" => "success",
             "userInfo" => $user
         ]);
+    }
+
+    public function getStats(Request $request) {
+        $user = $request->user();
+        $projects = $user->projects();
+        $customers = $user->customers();
+
+        return [
+            "status"=>"success",
+            "stats"=>[
+                "customers"=>[
+                    "count"=>$customers->count()
+                ],
+                "projects"=>[
+                    "count"=>$projects->count(),
+                    "total"=>$projects->sum('amount')
+                ]
+            ]
+        ];
     }
 }

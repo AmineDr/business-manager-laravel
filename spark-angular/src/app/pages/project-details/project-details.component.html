@@ -15,7 +15,7 @@
             </tr>
             <tr>
               <th>Amount</th>
-              <td>{{ project?.amount }}</td>
+              <td>{{ utilsService.formatPrice(project?.amount) }}</td>
             </tr>
             <tr>
               <th>Customer name</th>
@@ -27,11 +27,11 @@
             </tr>
             <tr>
               <th>Creation date</th>
-              <td>{{ project?.created_at }}</td>
+              <td>{{ utilsService.formatDate(project?.created_at) }}</td>
             </tr>
             <tr>
               <th>Last update</th>
-              <td>{{ project?.updated_at }}</td>
+              <td>{{ utilsService.formatDate(project?.updated_at) }}</td>
             </tr>
           </ng-template>
         </tbody>
@@ -66,9 +66,9 @@
               </ng-template>
               <tr *ngFor="let Installment of project?.installments; index as i">
                 <td>{{i + 1}}</td>
-                <td>{{ Installment.amount }}</td>
-                <td>{{ Installment.updated_at }}</td>
-                <td>{{ Installment.created_at }}</td>
+                <td>{{ utilsService.formatPrice(Installment.amount) }}</td>
+                <td>{{ utilsService.formatDate(Installment.updated_at) }}</td>
+                <td>{{ utilsService.formatDate(Installment.created_at) }}</td>
                 <td><span class="text-danger" style="cursor: pointer;" (click)="handleDelete(Installment.id)">-</span></td>
               </tr>
             </tbody>
