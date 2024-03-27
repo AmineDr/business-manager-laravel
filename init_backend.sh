@@ -14,3 +14,4 @@ DB_DATABASE=business_manager
 DB_USERNAME=bmuser
 DB_PASSWORD=GDSlogin69' > .env;
 composer install --no-dev --optimize-autoloader;
+systemctl restart nginx.service;

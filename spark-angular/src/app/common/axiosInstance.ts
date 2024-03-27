@@ -1,28 +1,30 @@
 import { Axios, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { getToken } from './tokens';
 
+const baseURL = process.env['environ'] === 'prod' ? '/api' : 'http://localhost:8000/api';
+
 export class AxiosInstance extends Axios {
   token = getToken();
 
   constructor() {
     super({
-      baseURL: 'http://localhost:8001/api'
+      baseURL: baseURL,
     });
-    
+
     this.interceptors.request.use((config: InternalAxiosRequestConfig) => {
       if (this.token) {
         // config.withCredentials = true
-        config.headers.Authorization = `Bearer ${this.token}`
+        config.headers.Authorization = `Bearer ${this.token}`;
       }
-      if (config.method === "post") {
-        const formData = new FormData()
+      if (config.method === 'post') {
+        const formData = new FormData();
         Object.entries(config.data).forEach(([key, value]) => {
-          formData.append(key, value as string)
-        })
-        config.data = formData
+          formData.append(key, value as string);
+        });
+        config.data = formData;
       }
-      return config
-    })
+      return config;
+    });
 
     this.interceptors.response.use((resp: AxiosResponse<any, any>) => {
       if (typeof resp.data === 'string') {
