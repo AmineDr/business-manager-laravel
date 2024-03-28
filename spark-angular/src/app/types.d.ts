@@ -17,10 +17,19 @@ interface ProjectDetailed {
     updated_at:   Date;
     created_at:   Date;
     customer: Customer;
+    expenses: Expense[];
     installments: Installment[];
 }
 
 interface Installment {
+    id:         number;
+    amount:     number;
+    project_id: number;
+    created_at: Date;
+    updated_at: Date;
+}
+
+interface Expense {
     id:         number;
     amount:     number;
     project_id: number;

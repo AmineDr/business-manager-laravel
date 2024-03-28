@@ -41,3 +41,8 @@ $router->group(['prefix'=>'/api/installments'], function () use ($router) {
     $router->delete('{id}', 'InstallmentController@delete');
 });
 
+$router->group(['prefix'=>'/api/expenses'], function () use ($router) {
+    $router->get('', 'ExpenseController@getByProject');
+    $router->post('', 'ExpenseController@add');
+    $router->delete('{id}', 'ExpenseController@delete');
+});

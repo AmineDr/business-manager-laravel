@@ -21,6 +21,7 @@ export class ProjectDetailsComponent implements OnInit {
   router = new Router();
   axios = new AxiosInstance();
   addInstallmentForm: FormGroup = new FormGroup({});
+  addExpenseForm: FormGroup = new FormGroup({});
   constructor(private route: ActivatedRoute, private fb: FormBuilder, public utilsService: UtilsService) {}
 
   ngOnInit(): void {
@@ -33,6 +34,10 @@ export class ProjectDetailsComponent implements OnInit {
       amount: 0,
       project_id: this.project_id,
     });
+    this.addExpenseForm = this.fb.group({
+      amount: 0,
+      project_id: this.project_id
+    })
   }
 
   fetchData() {
@@ -77,10 +82,45 @@ export class ProjectDetailsComponent implements OnInit {
     return data;
   }
 
+  handleExpenseSubmit() {
+    const data = this.validateExpenseFormData();
+    if (!data) {
+      alert("Invalid Data!");
+      return
+    }
+    this.axios.post('/expenses', {...data}).then((resp) => {
+      if (resp.data.status === "success") {
+        this.fetchData();
+        this.addExpenseForm.setValue({
+          amount: 0,
+          project_id: this.project_id
+        })
+      }
+    })
+  }
+
+  validateExpenseFormData() {
+    const data = this.addExpenseForm.value;
+    if (!data.amount) return null;
+    return data;
+  }
   handleDelete(installment_id: number) {
     if (window.confirm('Confirm deletion?')) {
       this.axios
         .delete(`/installments/${installment_id}?project_id=${this.project_id}`)
+        .then((resp) => {
+          if (resp.data.status === "success") {
+            this.fetchData();
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }
+
+  handleDeleteExpense(expense_id: number) {
+    if (window.confirm('Confirm deletion?')) {
+      this.axios
+        .delete(`/expenses/${expense_id}?project_id=${this.project_id}`)
         .then((resp) => {
           if (resp.data.status === "success") {
             this.fetchData();

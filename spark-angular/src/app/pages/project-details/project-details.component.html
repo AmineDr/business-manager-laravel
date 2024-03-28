@@ -76,5 +76,44 @@
         </div>
       </div>
     </div>
+    <div class="card mt-5">
+      <div class="card-header">
+        <h2 class="display-6">Expenses</h2>
+      </div>
+      <div>
+        <div class="d-flex justify-content-end py-3 pe-3">
+          <form class="form-group d-flex" [formGroup]="addExpenseForm" (ngSubmit)="handleExpenseSubmit()">
+            <input class="form-control form-control-sm" style="border-radius: 0%;" type="number" formControlName="amount" />
+            <input class="btn btn-sm btn-outline-success" style="border-radius: 0%;" value="Add expense" type="submit" />
+          </form>
+        </div>
+        <div class="card-body overflow-x-scroll">
+          <table class="table table-sm">
+            <thead>
+              <th>#</th>
+              <th>Amount</th>
+              <th>Last Update</th>
+              <th>Creation Date</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <div *ngIf="project?.expenses?.length; else noContent;"></div>
+              <ng-template #noContent>
+                <tr>
+                  <td colspan="5">No record.</td>
+                </tr>
+              </ng-template>
+              <tr *ngFor="let expense of project?.expenses; index as i">
+                <td>{{i + 1}}</td>
+                <td>{{ utilsService.formatPrice(expense.amount) }}</td>
+                <td>{{ utilsService.formatDate(expense.updated_at) }}</td>
+                <td>{{ utilsService.formatDate(expense.created_at) }}</td>
+                <td><span class="text-danger" style="cursor: pointer;" (click)="handleDeleteExpense(expense.id)">-</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
