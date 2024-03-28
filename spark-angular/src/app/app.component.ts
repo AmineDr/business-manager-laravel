@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   constructor(private userInfoService: AuthService) {
     userInfoService.checkSession().then((resp) => {
       if (resp) {
-        // this.router.navigateByUrl('/home')
+        this.router.navigateByUrl('/home')
         return
       }
       this.router.navigateByUrl('/login')
