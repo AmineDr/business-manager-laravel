@@ -16,6 +16,10 @@
           <th>Creation date</th>
         </thead>
         <tbody>
+          <div *ngIf="projects.length; else noContent"></div>
+          <ng-template #noContent>
+            <tr><td colspan="5">No record.</td></tr>
+          </ng-template>
           <div *ngIf="isLoading; then loading; else done"></div>
           <ng-template #loading> Loading... </ng-template>
           <ng-template #done>

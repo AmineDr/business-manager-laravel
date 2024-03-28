@@ -47,10 +47,6 @@ export class ProjectAddComponent {
     this.goBack = !this.goBack
   }
 
-  handleCustomerChange(e?: any) {
-    
-  }
-
   handleSubmit() {
     const data = this.validateFormData()
     if (!data) {
@@ -59,7 +55,6 @@ export class ProjectAddComponent {
     }
     this.isLoading = true
     this.axios.post('/projects/add', {...data}).then((resp) => {
-      console.log(resp.data);
       if (resp.data.status === "success") {
         if (this.goBack) {
           this.router.navigateByUrl('/projects')

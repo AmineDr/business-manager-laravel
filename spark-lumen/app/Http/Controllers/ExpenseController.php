@@ -48,7 +48,7 @@ class ExpenseController extends Controller
     public function delete(Request $request, $id) {
         if (!$id || !$request->get('project_id')) return response(["status"=>"badData"], 400);
         $expense = Expense::find($id);
-        if (!$expense) return response(["status"=>"notFoundff"], 404);
+        if (!$expense) return response(["status"=>"notFound"], 404);
         $project = Project::find($request->get('project_id'));
         if ($project->user_id == $request->user()->id) {
             $expense->delete();

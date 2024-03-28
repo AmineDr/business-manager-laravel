@@ -1,1 +1,29 @@
-<p>register works!</p>
+<div class="card">
+    <div class="card-header">
+        <h2 class="display-4">Create an account</h2>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="First name" formControlName="firstname">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Last name" formControlName="lastname">
+              </div>
+            </div>
+            <div class="mt-3">
+                <input class="form-control" placeholder="Email" formControlName="email">
+            </div>
+            <div class="mt-3">
+                <input class="form-control" placeholder="Password" type="password" formControlName="password">
+            </div>
+            <div class="mt-3">
+                <input class="form-control" placeholder="Confirm password" type="password" formControlName="confirmPassword">
+            </div>
+            <div class="mt-3 d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </form>
+    </div>
+</div>

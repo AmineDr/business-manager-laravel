@@ -18,7 +18,7 @@ class UserController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         if ($user && Hash::check($request->input('password'), $user->password)) {
-            $user->api_token = base64_encode(random_bytes(30));// Generate a random token
+            $user->api_token = $this->genToken();
             $user->save();
 
             return response()->json([
@@ -28,6 +28,33 @@ class UserController extends Controller
         }
 
         return response()->json(['error' => 'Invalid credentials'], 401);
+    }
+
+    public function register(Request $request) {
+        $this->validate($request, [
+            'firstname'=>'required|min:3',
+            'lastname'=>'required|min:3',
+            'email' => 'required|email',
+            'password' => 'required:min8'
+        ]);
+
+        if (User::where('email', $request->input('email'))->first()) {
+            return response(["status" => "emailExists"], 403);
+        }
+
+        $user = new User();
+        $user->firstname = $request->input("firstname");
+        $user->lastname = $request->input("lastname");
+        $user->email = $request->input("email");
+        $user->password = Hash::make($request->input("password"));
+        $user->api_token = $this->genToken();
+        $user->save();
+
+        return [
+          "status"=>"success",
+          "userInfo"=>$user,
+          "api_token"=>$user->api_token
+        ];
     }
 
     public function getAuthenticatedUser(Request $request) {
@@ -60,5 +87,9 @@ class UserController extends Controller
                 ]
             ]
         ];
+    }
+
+    public function genToken() {
+        return base64_encode(random_bytes(30));
     }
 }

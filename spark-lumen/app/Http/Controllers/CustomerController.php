@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function get() {
-        $customers = Customer::withCount('projects')->get();
+    public function get(Request $request) {
+        $customers = Customer::withCount('projects')->where('user_id', $request->user()->id)->get();
         if (!$customers) {
             return response([
                 "status"=>"notFound"
@@ -20,8 +20,8 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function getId($id) {
-        $customer = Customer::with('projects')->find($id);
+    public function getId(Request $request, $id) {
+        $customer = Customer::with('projects')->where('user_id', $request->user()->id)->find($id);
         if (!$customer) {
             return response([
                 "status"=>"notFound"
