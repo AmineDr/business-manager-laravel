@@ -22,7 +22,7 @@ class ProjectController extends Controller
     }
 
     public function getId(Request $request, $id) {
-        $project = Project::find($id)->where('user_id', $request->user()->id)->with("customer")->with("installments")->first();
+        $project = Project::find($id)->where('user_id', $request->user()->id)->with("customer")->with("installments")->with("expenses")->first();
         if (!$project) {
             return response([
                 "status"=>"notFound"

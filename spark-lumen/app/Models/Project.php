@@ -26,6 +26,10 @@ class Project extends Model
         return $this->hasMany("App\Models\Installment");
     }
 
+    public function expenses() {
+        return $this->hasMany("App\Models\Expense");
+    }
+
     public function to_json() {
         return [
             "id"=>$this->id,
@@ -39,6 +43,10 @@ class Project extends Model
 
         static::deleting(function ($project) {
             $project->installments->delete();
+        });
+
+        static::deleting(function ($project) {
+            $project->expenses->delete();
         });
     }
 }
