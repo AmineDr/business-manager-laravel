@@ -12,6 +12,8 @@ export class UtilsService {
     let p: number = 0
     if (typeof price === "string") {
       p = parseInt(price)
+    } else {
+      p = price
     }
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'DZD' }).format(p)
   }

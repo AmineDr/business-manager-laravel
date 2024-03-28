@@ -19,7 +19,7 @@ export class CustomerDetailsComponent implements OnInit {
   customer: any;
   router = new Router();
   axios = new AxiosInstance()
-  
+
   constructor(private route: ActivatedRoute, public utilsService: UtilsService) {}
 
   ngOnInit() {
@@ -35,5 +35,17 @@ export class CustomerDetailsComponent implements OnInit {
       .finally(() => {
         this.isLoading = false;
       });
+  }
+
+  deleteCustomer() {
+    if (window.confirm('Confirm deletion?')) {
+      if (this.customer.projects.length && !window.confirm('This customer has projects, if you proceed all the projects related will erased, are you sure you want to continue?')) return
+      this.axios.delete(`/customers/${this.customer_id}`).then((resp) => {
+        if (resp.data.status === "success") {
+          this.router.navigateByUrl('/customers')
+          return
+        }
+      }).catch((err) => console.log(err))
+    }
   }
 }
