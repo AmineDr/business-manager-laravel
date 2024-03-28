@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="display-4">User informations</h2>
+  </div>
+  <div class="card-body">
+    <div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Full name</th>
+            <td>{{ user?.firstname }} {{ user?.lastname }}</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>{{ user?.email }}</td>
+          </tr>
+          <tr>
+            <th>Last login</th>
+            <td>{{ utilsService.formatDate(user?.last_login) }}</td>
+          </tr>
+          <tr>
+            <th>Creation date</th>
+            <td>{{ utilsService.formatDate(user?.created_at) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

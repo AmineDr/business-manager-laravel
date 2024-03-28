@@ -13,9 +13,10 @@
     <hr class="d-block d-md-none" />
     <div *ngIf="user;then authenticated; else notAuthenticated"></div>
     <ng-template #authenticated>
-      <div>
-        Welcome, {{ user?.firstname }}
-        <button class="btn btn-link btn-sm" (click)="logOut()">Disconnect</button>
+      <div class="d-flex align-items-center">
+        Welcome, <a class="btn btn-link" [routerLink]="['/settings']" title="Settings">{{ user?.firstname }}</a>
+        <span>|</span>
+        <a class="btn btn-link" (click)="logOut()">Disconnect</a>
       </div>
     </ng-template>
     <ng-template #notAuthenticated>

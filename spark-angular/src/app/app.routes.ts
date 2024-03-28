@@ -9,6 +9,7 @@ import { AuthGuard } from './guards/auth-guard.guard';
 import { RegisterComponent } from './pages/register/register.component';
 import { CustomerAddComponent } from './pages/customer-add/customer-add.component';
 import { ProjectAddComponent } from './pages/project-add/project-add.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,11 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',

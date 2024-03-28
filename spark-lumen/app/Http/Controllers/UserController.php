@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -19,6 +20,7 @@ class UserController extends Controller
 
         if ($user && Hash::check($request->input('password'), $user->password)) {
             $user->api_token = $this->genToken();
+            $user->last_login = DB::raw('CURRENT_TIMESTAMP');
             $user->save();
 
             return response()->json([

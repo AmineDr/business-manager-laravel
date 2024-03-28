@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
     this.isLoading = true
     this.axios.get('/user/stats').then((resp) => {
       this.stats = resp.data.stats
-      console.log(resp.data)
     }).catch((err) => console.log(err))
   }
 
