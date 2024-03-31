@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UtilsService {
-
-  constructor() { }
+  locale = navigator.language
+  constructor() {}
 
   formatPrice(price?: number | string) {
     if (typeof price === "undefined") return '0.00 DZD'
@@ -15,14 +15,12 @@ export class UtilsService {
     } else {
       p = price
     }
-    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'DZD' }).format(p)
+    return new Intl.NumberFormat(this.locale, { style: 'currency', currency: 'DZD' }).format(p)
   }
 
   formatDate(date?: Date | string) {
     if (typeof date === "undefined") return '01/01/2020 - 00:00'
     const d = new Date(date)
-    const m = d.getMinutes()
-    const h = d.getHours()
-    return `${d.toDateString()} at ${(h / 10) >= 1 ? h : '0'+h}:${(m / 10) >= 1 ? m : '0'+m}`
+    return Intl.DateTimeFormat(this.locale, {hour: "2-digit", minute: "2-digit",hour12: true,day: "2-digit", month: "long", year: "numeric"}).format(d)
   }
 }
