@@ -23,13 +23,19 @@ export class AxiosInstance extends Axios {
           formData.append(key, value as string);
         });
         config.data = formData;
+      } else if (config.method === "patch") {
+        config.data = new URLSearchParams(config.data)
       }
       return config;
     });
 
     this.interceptors.response.use((resp: AxiosResponse<any, any>) => {
       if (typeof resp.data === 'string') {
-        resp.data = JSON.parse(resp.data);
+        try {
+          resp.data = JSON.parse(resp.data);
+        } catch (err){
+
+        }
       }
       return resp;
     });

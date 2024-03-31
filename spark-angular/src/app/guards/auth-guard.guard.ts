@@ -15,9 +15,7 @@ export class AuthGuard {
     return from(this.authService.checkSession()) // Convert promise to observable
       .pipe(
         map(hasSession => {
-          if (hasSession) {
-            return true;
-          }
+          if (hasSession) return true;
           this.router.navigate(['/login']);
           return false;
         }),

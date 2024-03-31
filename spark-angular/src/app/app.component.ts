@@ -3,31 +3,22 @@ import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth-service.service';
 import { AxiosInstance } from './common/axiosInstance';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { AuthGuard } from './guards/auth-guard.guard';
 
 @Component({
   selector: 'app-root',
-  standalone: true, // Bootstraps the application within this component
-  imports: [RouterOutlet, NavbarComponent], // Import necessary components
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title = 'spark-angular';
+  title = 'Business manager';
   isLoading = true;
   user: UserInfo | null = null;
   axios = new AxiosInstance();
   router = new Router();
 
-  constructor(private userInfoService: AuthService) {
-    userInfoService.checkSession().then((resp) => {
-      if (resp) {
-        this.router.navigateByUrl('/home')
-        return
-      }
-      this.router.navigateByUrl('/login')
-    })
-  }
+  constructor(private userInfoService: AuthService) {}
 
   ngOnInit(): void {
     this.userInfoService.user.subscribe(
@@ -35,6 +26,7 @@ export class AppComponent implements OnInit {
         this.user = info
       }
     );
+
     const prefered_color_mode = localStorage.getItem('color_mode')
     const html = document.getElementsByTagName('html')[0];
     if (prefered_color_mode && html) {

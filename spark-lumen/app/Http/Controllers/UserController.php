@@ -36,7 +36,7 @@ class UserController extends Controller
         $this->validate($request, [
             'firstname'=>'required|min:3',
             'lastname'=>'required|min:3',
-            'email' => 'required|email',
+            'email' => 'email|unique:users,email,',
             'password' => 'required:min8'
         ]);
 
@@ -93,5 +93,43 @@ class UserController extends Controller
 
     public function genToken() {
         return base64_encode(random_bytes(30));
+    }
+
+    public function editUserInfo(Request $request) {
+        $user = $request->user();
+
+        $validatedData = $this->validate($request, [
+            'firstname' => 'string|min:3',
+            'lastname' => 'string|min:3',
+            'email' => 'email|unique:users,email,',
+            'password' => 'string|min:8'
+        ]);
+
+        foreach ($validatedData as $key => $value) {
+            if (empty($value)) {
+                unset($validatedData[$key]);
+            }
+        }
+
+        if (!count($validatedData)) {
+            return response([
+                "status"=>"notModified"
+            ], 304);
+        }
+
+        if (array_key_exists('password', $validatedData)) {
+            $user->password = Hash::make($validatedData['password']);
+        }
+
+        unset($validatedData['password']);
+
+        $user->update($validatedData);
+        $user->save();
+
+        return [
+            "status" => "success",
+            "data"=>$validatedData,
+            "userInfo"=>$user
+        ];
     }
 }

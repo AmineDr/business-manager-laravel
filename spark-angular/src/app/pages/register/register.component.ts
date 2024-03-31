@@ -29,6 +29,10 @@ export class RegisterComponent implements OnInit {
       password: "",
       confirmPassword: ""
     })
+
+    if (this.authService.getUserInfo()) {
+      this.router.navigateByUrl('/home')
+    }
   }
 
   handleSubmit() {
@@ -39,7 +43,7 @@ export class RegisterComponent implements OnInit {
     }
     this.isLoading = true
     this.axios.post('/register', {...data}).then((resp) => {
-      if (resp.data.status === "emailExists") {
+      if (resp.status === 422) {
         alert("Email already registered!");
         return;
       }

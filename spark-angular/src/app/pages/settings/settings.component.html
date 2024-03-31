@@ -19,11 +19,69 @@
             <td>{{ utilsService.formatDate(user?.last_login) }}</td>
           </tr>
           <tr>
+            <th>Last update</th>
+            <td>{{ utilsService.formatDate(user?.updated_at) }}</td>
+          </tr>
+          <tr>
             <th>Creation date</th>
             <td>{{ utilsService.formatDate(user?.created_at) }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
+</div>
+
+<div class="card my-5">
+  <div class="card-header">
+    <h2 class="display-4">Update informations</h2>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="editForm" (ngSubmit)="handleSubmit()">
+      <div class="d-flex justify-content-between gap-3">
+        <div class="form-group w-100">
+          <label class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            [placeholder]="user?.firstname"
+            formControlName="firstname"
+          />
+        </div>
+        <div class="form-group w-100">
+          <label class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            [placeholder]="user?.lastname"
+            formControlName="lastname"
+          />
+        </div>
+      </div>
+      <div class="form-group w-100 mt-3">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          [placeholder]="user?.email"
+          formControlName="email"
+        />
+      </div>
+      <div class="form-group w-100 mt-3">
+        <label class="form-label">Password</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </div>
+      <div class="d-flex justify-content-between align-items-bottom my-5">
+        <small class="form-text text-muted">
+          Leave blank if you don't want to save
+        </small>
+        <input class="btn btn-primary" value="Submit" type="submit" [disabled]="invalid" />
+      </div>
+    </form>
   </div>
 </div>

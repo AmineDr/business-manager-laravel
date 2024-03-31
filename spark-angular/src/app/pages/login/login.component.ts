@@ -30,11 +30,17 @@ export class LoginComponent implements OnInit {
       password: '',
     });
     // this.loginForm.valueChanges.subscribe(console.log);
+    if (this.userInfoService.getUserInfo()) {
+      this.router.navigateByUrl('/home')
+    }
   }
 
   handleLogin() {
     const data = this.validateData()
-    if (!data) alert('Invalid Data!');
+    if (!data) {
+      alert('Invalid Data!')
+      return
+    };
     this.isLoading = true
     this.axios.post('/login', {...data}).then((resp: AxiosResponse<{status: string, token: string}, any>) => {
       if (resp.data.status === "success") {

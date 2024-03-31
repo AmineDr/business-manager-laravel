@@ -14,16 +14,16 @@ import { SettingsComponent } from './pages/settings/settings.component';
 export const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'settings',
     component: SettingsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'home',
@@ -40,13 +40,13 @@ export const routes: Routes = [
       },
       {
         path: 'add',
-        component: ProjectAddComponent
+        component: ProjectAddComponent,
       },
       {
         path: ':id',
         component: ProjectDetailsComponent,
       },
-    ]
+    ],
   },
   {
     path: 'customers',
@@ -58,7 +58,7 @@ export const routes: Routes = [
       },
       {
         path: 'add',
-        component: CustomerAddComponent
+        component: CustomerAddComponent,
       },
       {
         path: ':id',
