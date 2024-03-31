@@ -15,7 +15,7 @@
 
       <!-- Submit button -->
       <div class="d-flex justify-content-center">
-        <input class="btn btn-primary w-50" value="Login" type="submit" [disabled]="isLoading" />
+        <input class="btn btn-primary w-50" value="Login" type="submit" [disabled]="isLoading || !isValid" />
       </div>
     </form>
   </div>

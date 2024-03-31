@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   router = new Router();
   axios = new AxiosInstance();
   isLoading = false
+  isValid = false
 
   constructor(private fb: FormBuilder, private userInfoService: AuthService) {}
 
@@ -29,7 +30,13 @@ export class LoginComponent implements OnInit {
       email: '',
       password: '',
     });
-    // this.loginForm.valueChanges.subscribe(console.log);
+    this.loginForm.valueChanges.subscribe(() => {
+      if (this.validateData()) {
+        this.isValid = true
+        return
+      }
+      this.isValid = false
+    });
     if (this.userInfoService.getUserInfo()) {
       this.router.navigateByUrl('/home')
     }
@@ -42,11 +49,12 @@ export class LoginComponent implements OnInit {
       return
     };
     this.isLoading = true
-    this.axios.post('/login', {...data}).then((resp: AxiosResponse<{status: string, token: string}, any>) => {
+    this.axios.post('/login', {...data}).then((resp: AxiosResponse<{status: string, token: string, userInfo: UserInfo}, any>) => {
       if (resp.data.status === "success") {
         setToken(resp.data.token)
+        this.userInfoService.setUserInfo(resp.data.userInfo as UserInfo)
+        this.router.navigateByUrl('/home')
         alert('Welcome')
-        window.location.reload()
       }
     }).catch((err: AxiosError) => console.log(err.status))
     .finally(() => {
@@ -55,16 +63,8 @@ export class LoginComponent implements OnInit {
   }
 
   validateData() {
-    const data = {
-      email: this.loginForm.value.email as string,
-      password: this.loginForm.value.password as string,
-    };
-  
-    try {
-      if (!isEmail(data.email) || data.password.length < 8) return null;
-      return data;
-    } catch {
-      return null
-    }
+    const data = this.loginForm.value
+    if (!data.email.length || !isEmail(data.email) || data.password.length < 8) return null;
+    return data;
   }
 }

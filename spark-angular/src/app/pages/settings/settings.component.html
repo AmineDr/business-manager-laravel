@@ -37,7 +37,7 @@
     <h2 class="display-4">Update informations</h2>
   </div>
   <div class="card-body">
-    <form [formGroup]="editForm" (ngSubmit)="handleSubmit()">
+    <form [formGroup]="editForm" (ngSubmit)="handleSubmit($event)">
       <div class="d-flex justify-content-between gap-3">
         <div class="form-group w-100">
           <label class="form-label">First Name</label>

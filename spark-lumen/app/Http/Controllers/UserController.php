@@ -26,6 +26,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'success',
                 'token' => $user->api_token,
+                'userInfo' => $user
             ]);
         }
 
@@ -101,7 +102,7 @@ class UserController extends Controller
         $validatedData = $this->validate($request, [
             'firstname' => 'string|min:3',
             'lastname' => 'string|min:3',
-            'email' => 'email|unique:users,email,',
+            'email' => 'email|unique:users,email,'.User::class,
             'password' => 'string|min:8'
         ]);
 
