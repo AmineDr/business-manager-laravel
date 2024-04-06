@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,10 +24,13 @@ class UserController extends Controller
             $user->last_login = DB::raw('CURRENT_TIMESTAMP');
             $user->save();
 
+            $res = $user;
+            $res->last_login = Date::createFromTimestamp(time());
+
             return response()->json([
                 'status' => 'success',
                 'token' => $user->api_token,
-                'userInfo' => $user
+                'userInfo' => $res
             ]);
         }
 
