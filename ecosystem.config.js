@@ -13,7 +13,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'git@github.com:AmineDr/business-manager-laravel.git',
       path : '/home/laravel_spark',
-      'pre-deploy-local': './git_push.bat',
+      'pre-deploy-local': '',
       'post-deploy' : 'pm2 reload ecosystem.config.js --env production && chmod +x ./init_backend.sh && chmod +x ./init_frontend.sh && ./init_backend.sh && ./init_frontend.sh',
       'pre-setup': '',
       "ssh_options": "ForwardAgent=yes"
